@@ -27,3 +27,15 @@ root@77e30fca8a01:/home/workspace/CppND-Object-Oriented# ./a.out
                                       Aborted (core dumped)
 ```
 just keep trying `./a.out` and it should work eventually!
+
+## My solution
+
+Compile and run
+
+```bash
+make && ./hhtop
+```
+
+Running System Monitor example
+
+![System Monitor](img/SystemMonitor.png)
