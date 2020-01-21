@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SYS_INFO_H
+#define SYS_INFO_H
 
 #include <string>
 #include <iostream>
@@ -127,3 +128,5 @@ std::string SysInfo::getRunningProc()   const { return std::to_string(this->runn
 std::string SysInfo::getThreads()       const { return std::to_string(this->threads);     }
 
 std::string SysInfo::getOSName()        const { return this->OSname;                      }
+
+#endif

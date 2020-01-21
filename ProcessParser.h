@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PROCESS_PARSER_H
+#define PROCESS_PARSER_H
 
 #include <algorithm>
 #include <cerrno>
@@ -13,7 +14,7 @@
 #include <stdexcept>
 #include <string>
 #include <thread>
-#include <time.h>
+#include <ctime>
 #include <unistd.h>
 #include <vector>
 
@@ -27,29 +28,29 @@ class ProcessParser {
 private:
   std::ifstream stream;
 public:
-  static std::string getCmd(std::string pid);
+  static std::string getCmd(const std::string & pid);
   static std::vector<std::string> getPidList();
-  static std::string getVmSize(std::string pid);
-  static std::string getCpuPercent(std::string pid);
+  static std::string getVmSize(const std::string & pid);
+  static std::string getCpuPercent(const std::string & pid);
   static long int getSysUpTime();
-  static std::string getProcUpTime(std::string pid);
-  static std::string getProcUser(std::string pid);
-  static std::vector<std::string> getSysCpuPercent(std::string coreNumber = "");
+  static std::string getProcUpTime(const std::string & pid);
+  static std::string getProcUser(const std::string & pid);
+  static std::vector<std::string> getSysCpuPercent(const std::string & coreNumber = "");
   static float getSysRamPercent();
   static std::string getSysKernelVersion();
   static int getTotalThreads();
   static int getTotalNumberOfProcesses();
   static int getNumberOfRunningProcesses();
   static std::string getOSName();
-  static std::string PrintCpuStats(std::vector<std::string> values1, std::vector<std::string> values2);
-  static bool isPidExisting(std::string pid);
+  static std::string PrintCpuStats(const std::vector<std::string> & values1, const std::vector<std::string> & values2);
+  static bool isPidExisting(const std::string & pid);
   // This one is missing
   static int getNumberOfCores();
 };
 
 // TODO: Define all of the above functions below:
 // $ cat /proc/${pid}/status | grep VmData
-std::string ProcessParser::getVmSize(std::string pid) {
+std::string ProcessParser::getVmSize(const std::string & pid) {
   if (!ProcessParser::isPidExisting(pid)) return "";
   std::string line;
   std::string name = "VmData";
@@ -88,7 +89,7 @@ int ProcessParser::getNumberOfCores() {
 }
 
 // $ cat /proc/{pid}/cmdline
-std::string ProcessParser::getCmd(std::string pid) {
+std::string ProcessParser::getCmd(const std::string & pid) {
   if (!ProcessParser::isPidExisting(pid)) return "...";
   std::string line;
   std::ifstream stream;
@@ -119,7 +120,7 @@ std::vector<std::string> ProcessParser::getPidList() {
 }
 
 // $ cat /proc/${pid}/stat
-std::string ProcessParser::getCpuPercent(std::string pid) {
+std::string ProcessParser::getCpuPercent(const std::string & pid) {
   if (!ProcessParser::isPidExisting(pid)) return "";
   std::string line;
   std::string value;
@@ -161,7 +162,7 @@ long int ProcessParser::getSysUpTime() {
 }
 
 // $ cat /proc/${pid}/stat # get proc uptime
-std::string ProcessParser::getProcUpTime(std::string pid) {
+std::string ProcessParser::getProcUpTime(const std::string & pid) {
   if (!ProcessParser::isPidExisting(pid)) return "";
   std::string line;
   std::string value;
@@ -179,7 +180,7 @@ std::string ProcessParser::getProcUpTime(std::string pid) {
 
 // $ cat /proc/${pid}/status | grep Uid:
 // $ cat /etc/passwd | grep ${uid}
-std::string ProcessParser::getProcUser(std::string pid) {
+std::string ProcessParser::getProcUser(const std::string & pid) {
   if (!ProcessParser::isPidExisting(pid)) return "";
   // cat /proc/${pid}/status | grep Uid:
   std::string line;
@@ -208,7 +209,7 @@ std::string ProcessParser::getProcUser(std::string pid) {
 }
 
 // $ cat /proc/stat | grep cpu${coreNumber}
-std::vector<std::string> ProcessParser::getSysCpuPercent(std::string coreNumber) {
+std::vector<std::string> ProcessParser::getSysCpuPercent(const std::string & coreNumber) {
   std::string line;
   std::string name = "cpu" + coreNumber;
   std::ifstream stream;
@@ -373,8 +374,8 @@ std::string ProcessParser::getOSName() {
   return "";
 }
 
-std::string ProcessParser::PrintCpuStats(std::vector<std::string> values1,
-                                         std::vector<std::string> values2) {
+std::string ProcessParser::PrintCpuStats(const std::vector<std::string> & values1,
+                                         const std::vector<std::string> & values2) {
   float activeTime = getSysActiveCpuTime(values2) - getSysActiveCpuTime(values1);
   float idleTime   = getSysIdleCpuTime(values2)   - getSysIdleCpuTime(values1);
   float totalTime  = activeTime + idleTime;
@@ -384,7 +385,7 @@ std::string ProcessParser::PrintCpuStats(std::vector<std::string> values1,
   return std::to_string(result);
 }
 
-bool ProcessParser::isPidExisting(std::string pid) {
+bool ProcessParser::isPidExisting(const std::string & pid) {
   // Check if PID directory is still existing
   DIR * dir = opendir(std::string(Path::basePath() + pid).c_str());
   if (dir) {
@@ -393,3 +394,5 @@ bool ProcessParser::isPidExisting(std::string pid) {
   }
   return false;
 }
+
+#endif

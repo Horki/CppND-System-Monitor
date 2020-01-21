@@ -5,14 +5,14 @@
 #include <sstream>
 #include <string>
 #include <thread>
-#include <time.h>
+#include <ctime>
 #include <vector>
 
 #include "ProcessContainer.h"
 #include "SysInfo.h"
 #include "util.h"
 
-char* getCString(std::string str) {
+char* getCString(const std::string & str) {
   char *cstr = new char[str.length() + 1];
   strcpy(cstr, str.c_str());
   return cstr;
@@ -46,7 +46,8 @@ void writeSysInfoToConsole(SysInfo sys, WINDOW* sys_win) {
   wrefresh(sys_win);
 }
 
-void getProcessListToConsole(std::vector<std::string> processes, WINDOW* win) {
+void getProcessListToConsole(const std::vector<std::string> & processes,
+                             WINDOW* win) {
   wattron(win, COLOR_PAIR(2));
 
   mvwprintw(win, 1, 2,  "PID:");
@@ -62,7 +63,7 @@ void getProcessListToConsole(std::vector<std::string> processes, WINDOW* win) {
     mvwprintw(win, 2 + i, 2, getCString(processes[i]));
 }
 
-void printMain(SysInfo sys, ProcessContainer procs) {
+void printMain(const SysInfo & sys, ProcessContainer & procs) {
   /* Start curses mode */
 	initscr();
 
@@ -115,6 +116,4 @@ int main() {
   // Object which containts relevant methods and attributes regarding system details
   SysInfo sys;
   printMain(sys, procs);
-
-  return 0;
 }

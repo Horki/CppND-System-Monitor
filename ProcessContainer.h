@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PROCESS_CONTAINER_H
+#define PROCESS_CONTAINER_H
 
 #include "Process.h"
 #include <vector>
@@ -63,3 +64,5 @@ std::vector<std::vector<std::string>> ProcessContainer::getList() {
   }
   return values;
 }
+
+#endif

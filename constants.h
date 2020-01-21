@@ -1,8 +1,9 @@
-#pragma once
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 #include <string>
 
-enum CPUStates{
+enum CPUStates {
 	S_USER = 0,
 	S_NICE,
 	S_SYSTEM,
@@ -32,3 +33,5 @@ public:
 
   static std::string versionPath() { return "version";  }
 };
+
+#endif

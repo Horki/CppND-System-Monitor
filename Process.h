@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PROCESS_H
+#define PROCESS_H
 
 #include <string>
 #include <cstdio>
@@ -19,7 +20,7 @@ private:
   std::string upTime;
 
 public:
-  Process(std::string pid) {
+  Process(const std::string & pid) {
     this->pid    = pid;
     this->user   = ProcessParser::getProcUser(pid);
     this->mem    = ProcessParser::getVmSize(pid);
@@ -66,3 +67,5 @@ std::string Process::getProcess() {
           + this->upTime.substr(0, 5) + "    "
           + this->cmd.substr(0, 30));
 }
+
+#endif
