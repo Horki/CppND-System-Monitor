@@ -1,43 +1,13 @@
-#ifndef PROCESS_H
-#define PROCESS_H
-
-#include <string>
-#include <cstdio>
-
-#include "ProcessParser.h"
-
-/*
-Basic class for Process representation
-It contains relevant attributes as shown below
-*/
-class Process {
-private:
-  std::string pid;
-  std::string user;
-  std::string cmd;
-  std::string cpu;
-  std::string mem;
-  std::string upTime;
-
-public:
-  Process(const std::string & pid) {
-    this->pid    = pid;
-    this->user   = ProcessParser::getProcUser(pid);
-    this->mem    = ProcessParser::getVmSize(pid);
-    this->cmd    = ProcessParser::getCmd(pid);
-    this->upTime = ProcessParser::getProcUpTime(pid);
-    this->cpu    = ProcessParser::getCpuPercent(pid);
-  }
-
-  void        setPid(int pid);
-  std::string getPid()    const;
-  std::string getUser()   const;
-  std::string getCmd()    const;
-  int         getCpu()    const;
-  int         getMem()    const;
-  std::string getUpTime() const;
-  std::string getProcess();
-};
+#include <Process.h>
+  
+Process::Process(const std::string & pid) {
+  this->pid    = pid;
+  this->user   = ProcessParser::getProcUser(pid);
+  this->mem    = ProcessParser::getVmSize(pid);
+  this->cmd    = ProcessParser::getCmd(pid);
+  this->upTime = ProcessParser::getProcUpTime(pid);    
+  this->cpu    = ProcessParser::getCpuPercent(pid);
+}
 
 void        Process::setPid(int pid)   { this->pid = std::to_string(pid); }
 
@@ -68,4 +38,3 @@ std::string Process::getProcess() {
           + this->cmd.substr(0, 30));
 }
 
-#endif

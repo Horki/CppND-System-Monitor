@@ -5,36 +5,38 @@ Starter code for System Monitor Project in the C++ OOP course. Most of the code 
 ## To setup and compile in Udacity Ubuntu workspace:
 
 1. Clone repository into `/home/workspace/`
+
 ```
 cd /home/workspace/
-git clone https://github.com/udacity/CppND-System-Monitor
+git clone https://github.com/Horki/CppND-System-Monitor
 ```
+
 2. Follow along with the lesson and make sure you complete the `ProcessParser` and `Process` classes before attempting to run the project.
 
 3. Install `ncurses` package
-```
+
+```bash
+# Ubuntu
 sudo apt-get install libncurses5-dev libncursesw5-dev
+# Arch
+sudo pacman -S ncurses
 ```
+
 4. Compile and run
-```
-g++ -std="c++17" main.cpp -lncurses
-./a.out
-```
-5. In case of error that looks like the following: 
-```
-root@77e30fca8a01:/home/workspace/CppND-Object-Oriented# ./a.out
+- Make a build directory with `mkdir build`.
+- Change into the build directory, `cd build`.
+- Compile the project, `cmake .. && make`.
+- Run the project `./hhtop`.
+
+5. In case of error that looks like the following:
+
+```bash
+root@77e30fca8a01:/home/workspace/CppND-Object-Oriented# ./hhtop
 *** %n in writable segment detected ***
                                       Aborted (core dumped)
 ```
-just keep trying `./a.out` and it should work eventually!
 
-## My solution
-
-Compile and run
-
-```bash
-make && ./hhtop
-```
+just keep trying `./hhtop` and it should work eventually!
 
 Running System Monitor example
 

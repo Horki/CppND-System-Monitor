@@ -1,23 +1,9 @@
-#ifndef PROCESS_CONTAINER_H
-#define PROCESS_CONTAINER_H
+#include <ProcessContainer.h>
 
-#include "Process.h"
-#include <vector>
-#include <string>
-
-class ProcessContainer {
-private:
-  std::vector<Process> _list;
-public:
-  ProcessContainer() {
-    this->refreshList();
-  }
-  void refreshList();
-  std::string printList();
-  std::vector<std::vector<std::string>> getList();
-  // std::vector<std::string> getList();
-};
-
+ProcessContainer::ProcessContainer() {
+  this->refreshList();
+}
+ 
 void ProcessContainer::refreshList() {
   std::vector<std::string> pidList = ProcessParser::getPidList();
   this->_list.clear();
@@ -64,5 +50,3 @@ std::vector<std::vector<std::string>> ProcessContainer::getList() {
   }
   return values;
 }
-
-#endif
